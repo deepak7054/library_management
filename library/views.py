@@ -15,6 +15,8 @@ utc=pytz.UTC
 
 
 class AddStudent(APIView):
+    """this API will use to add students and get particular students details or all students detail """
+
     def post(self, request):
         try:
             ser = AddStudentSerializer(data=request.data)
@@ -40,6 +42,8 @@ class AddStudent(APIView):
 
 
 class AddBooks(APIView):
+    """this API will  use to add books and get particular book details or all books detail """
+
     def post(self, request):
         try:
             ser = AddBookSerializer(data=request.data, many=True)
@@ -66,6 +70,7 @@ class AddBooks(APIView):
 
 
 class BorrowBook(APIView):
+    """this API will  use to issue a book for a student"""
     def post(self, request):
         try:
             ser = BorrowBookSerializer(data=request.data)
@@ -95,6 +100,8 @@ class BorrowBook(APIView):
 
 
 class RenewBook(APIView):
+    """this API will use to renew issued book for a student"""
+
     def post(self, request):
         try:
             ser = RenewBookSerializer(data=request.data)
@@ -122,6 +129,8 @@ class RenewBook(APIView):
 
 
 class ReturnBook(APIView):
+    """this API will use to return issued book for a student"""
+
     def post(self, request):
         try:
             ser = ReturnBookSerializer(data=request.data)
@@ -149,6 +158,8 @@ class ReturnBook(APIView):
 
 
 class StudentBorrowedBook(APIView):
+    """Using this API student can check borrowed books"""
+
     def get(self, request):
         try:
             book_issue = BookIssue.objects.filter(student=request.data.get('student_id'), is_returned=False)
@@ -161,6 +172,7 @@ class StudentBorrowedBook(APIView):
 
 
 class StudentBorrowedHistory(APIView):
+    """Using this API librarian can check all borrowed or return history of a student"""
     def get(self, request):
         try:
             book_issue = BookIssue.objects.filter(student=request.data.get('student_id'))
